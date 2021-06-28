@@ -8,20 +8,6 @@
     </head>
     <body>
         <div>
-            <h3>Youtube Video</h3>
-            <video
-                autoplay
-                loop
-                controls
-                tabindex="-1"
-                class="video-stream html5-main-video"
-                controlslist="nodownload"
-                style="width: 932px; height: 524px; left: 0px; top: 0px"
-                src="/assets/video.webm"
-            ></video>
-        </div>
-
-        <div>
             <h3>Vimeo Video</h3>
             <video
                 autoplay
@@ -30,8 +16,24 @@
                 tabindex="-1"
                 disablepictureinpicture=""
                 style=""
-                src="/assets/video.webm"
+                controls="1"
+                src="/assets/video.mp4"
             ></video>
+        </div>
+
+        <div>
+            <h3>Iframe Video</h3>
+            <div>
+                <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/J3uBKUeqgO0"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            </div>
         </div>
     </body>
 </html>

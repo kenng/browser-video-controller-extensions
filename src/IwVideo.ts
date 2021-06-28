@@ -1,19 +1,22 @@
+import IwConsole from './IwConsole';
+
 export default class IwVideo {
+    readonly maxPlaybackRate = 6.0;
     video: HTMLVideoElement;
     seekRate: number;
     playbackRate: number;
-    showDebugLog: boolean;
+    volumeRate: number;
 
     constructor(
         video: HTMLVideoElement,
-        showDebugLog = true,
         seekRate = 1,
-        playBackRate = 1,
+        playBackRate = 1 / 5,
+        volumeRate = 0.1,
     ) {
         this.video = video;
         this.seekRate = seekRate;
         this.playbackRate = playBackRate;
-        this.showDebugLog = showDebugLog;
+        this.volumeRate = volumeRate;
     }
 
     controller(ev: WheelEvent) {
@@ -24,37 +27,75 @@ export default class IwVideo {
                 this.setCurrentTime(ev);
             }
         } else if (ev.altKey) {
-            if (ev.deltaY < 0) {
-                if (this.video.playbackRate > 1)
-                    this.video.playbackRate -= this.playbackRate / 4;
-            } else {
-                if (this.video.playbackRate < 10)
-                    this.video.playbackRate += this.playbackRate / 4;
-            }
-
-            ev.preventDefault();
-            console.log(this.video.playbackRate);
+            this.setPlayRate(ev);
         }
     }
 
-    private setCurrentTime(ev: WheelEvent) {
-        if (ev.deltaY < 0) {
-            this.video.currentTime -= this.seekRate;
+    private decimal(val: number): number {
+        return Math.round(val * 100) / 100;
+    }
+
+    // default: alt + mousewheel to control video's play rate
+    private setPlayRate(ev: WheelEvent) {
+        if (ev.deltaY > 0) {
+            const newPlayBackRate = this.video.playbackRate - this.playbackRate;
+            if (newPlayBackRate > 0.1) {
+                this.video.playbackRate = this.decimal(newPlayBackRate);
+            } else {
+                this.video.playbackRate = 0.1;
+            }
         } else {
-            if (!this.video.ended) this.video.currentTime += this.seekRate;
+            const newPlayBackRate = this.video.playbackRate + this.playbackRate;
+            if (newPlayBackRate < this.maxPlaybackRate) {
+                this.video.playbackRate = this.decimal(newPlayBackRate);
+            } else {
+                this.video.playbackRate = this.maxPlaybackRate;
+            }
         }
 
         ev.preventDefault();
-        console.log(this.video.currentTime);
+        IwConsole.log('playRate', this.video.playbackRate);
     }
 
-    private setVolume(ev: WheelEvent) {
-        if (ev.deltaY < 0) {
-            if (this.video.volume > 0) this.video.volume -= this.seekRate;
+    // default: shift + mousewheel to control video's current time
+    private setCurrentTime(ev: WheelEvent) {
+        if (ev.deltaY > 0) {
+            const newSeekRate = this.video.currentTime - this.seekRate;
+            if (newSeekRate > 0) {
+                this.video.currentTime = this.decimal(newSeekRate);
+            } else {
+                this.video.currentTime = 0;
+            }
         } else {
-            if (this.video.volume < 100) this.video.volume += this.seekRate;
+            const newSeekRate = this.video.currentTime + this.seekRate;
+            if (newSeekRate < this.video.duration) {
+                this.video.currentTime = this.decimal(newSeekRate);
+            }
         }
 
-        console.log(this.video.volume);
+        ev.preventDefault();
+        IwConsole.log('currentTime', this.video.currentTime);
+    }
+
+    // default: ctrl + alt + mousewheel to control volume
+    private setVolume(ev: WheelEvent) {
+        if (ev.deltaY > 0) {
+            const newVolume = this.video.volume - this.volumeRate;
+            if (newVolume > 0) {
+                this.video.volume = this.decimal(newVolume);
+            } else {
+                this.video.volume = 0;
+            }
+        } else {
+            const newVolume = this.video.volume + this.volumeRate;
+            if (newVolume < 1) {
+                this.video.volume = this.decimal(newVolume);
+            } else {
+                this.video.volume = 1;
+            }
+        }
+
+        ev.preventDefault();
+        IwConsole.log('volume', this.video.volume);
     }
 }

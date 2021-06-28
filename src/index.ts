@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Universal Video Controller
+// @name         My Video Controller
 // @namespace    git+ssh://git@github.com/kenng/browser-video-controller-extensions.git
 // @version      1.0.0
 // @description  mouse and keyboard shortcuts for video
@@ -8,20 +8,11 @@
 // ==/UserScript==
 
 /* jshint esversion: 6 */
-import IwVideo from './IwVideo';
+import IwInit from './IwInit';
 
-const videos = document.getElementsByTagName('video');
-const iwVideos: Array<IwVideo> = [];
-for (let i = 0; i < videos.length; i++) {
-    iwVideos.push(new IwVideo(videos[i]));
+function init() {
+    window.onload = function () {
+        new IwInit();
+    };
 }
-
-function onMouseWheel(ev) {
-    for (const video of iwVideos) {
-        video.controller(ev);
-    }
-}
-
-document.addEventListener('mousewheel', onMouseWheel.bind(this), {
-    passive: false,
-});
+init();
