@@ -1,0 +1,18 @@
+{
+    // "target": "es5",
+    // "module": "commonjs",
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "include": ["./src/index.ts"],
+    "sourceMap": true, // for debugging
+    "exclude": ["node_modules", "**/*.spec.ts"],
+    "compilerOptions": {
+        "baseUrl": "."
+    }
+}
