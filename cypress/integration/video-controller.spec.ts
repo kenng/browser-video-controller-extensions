@@ -18,12 +18,14 @@ describe('Video Controller Test', () => {
         cy.get('video')
             .as('myvideo')
             .then(($video) => {
-                const theVideo = $video[0] as HTMLVideoElement;
+                for (let index = 0; index < $video.length; index++) {
+                    const theVideo = $video[index] as HTMLVideoElement;
 
-                Object.assign(theVideo, resetAttr);
-                // console.log('playbackRate', resetAttr.playbackRate);
-                // console.log('currentTime', resetAttr.currentTime);
-                // console.log('volume', resetAttr.volume);
+                    Object.assign(theVideo, resetAttr);
+                    // console.log('playbackRate', resetAttr.playbackRate);
+                    // console.log('currentTime', resetAttr.currentTime);
+                    // console.log('volume', resetAttr.volume);
+                }
             });
     });
 
@@ -38,13 +40,16 @@ describe('Video Controller Test', () => {
         } as WheelEvent);
 
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new playbackRate (slower)',
-                theVideo.playbackRate,
-                resetAttr.playbackRate,
-            );
-            expect(theVideo.playbackRate < resetAttr.playbackRate).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new playbackRate (slower)',
+                    theVideo.playbackRate,
+                    resetAttr.playbackRate,
+                );
+                expect(theVideo.playbackRate < resetAttr.playbackRate).to.be
+                    .true;
+            }
         });
     });
 
@@ -55,13 +60,16 @@ describe('Video Controller Test', () => {
         } as WheelEvent);
 
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new playbackRate (faster)',
-                theVideo.playbackRate,
-                resetAttr.playbackRate,
-            );
-            expect(theVideo.playbackRate > resetAttr.playbackRate).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new playbackRate (faster)',
+                    theVideo.playbackRate,
+                    resetAttr.playbackRate,
+                );
+                expect(theVideo.playbackRate > resetAttr.playbackRate).to.be
+                    .true;
+            }
         });
     });
 
@@ -78,9 +86,14 @@ describe('Video Controller Test', () => {
         }
 
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log('new playbackRate (minimum)', theVideo.playbackRate);
-            expect(theVideo.playbackRate > 0).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new playbackRate (minimum)',
+                    theVideo.playbackRate,
+                );
+                expect(theVideo.playbackRate > 0).to.be.true;
+            }
         });
     });
 
@@ -91,13 +104,15 @@ describe('Video Controller Test', () => {
         } as WheelEvent);
 
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new currentTime',
-                theVideo.currentTime,
-                resetAttr.currentTime,
-            );
-            expect(theVideo.currentTime > resetAttr.currentTime).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new currentTime',
+                    theVideo.currentTime,
+                    resetAttr.currentTime,
+                );
+                expect(theVideo.currentTime > resetAttr.currentTime).to.be.true;
+            }
         });
     });
 
@@ -108,13 +123,15 @@ describe('Video Controller Test', () => {
         } as WheelEvent);
 
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new currentTime',
-                theVideo.currentTime,
-                resetAttr.currentTime,
-            );
-            expect(theVideo.currentTime < resetAttr.currentTime).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new currentTime',
+                    theVideo.currentTime,
+                    resetAttr.currentTime,
+                );
+                expect(theVideo.currentTime < resetAttr.currentTime).to.be.true;
+            }
         });
     });
 
@@ -129,9 +146,11 @@ describe('Video Controller Test', () => {
 
         // test
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log('new currentTime', theVideo.currentTime);
-            expect(theVideo.currentTime === 0).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log('new currentTime', theVideo.currentTime);
+                expect(theVideo.currentTime === 0).to.be.true;
+            }
         });
     });
 
@@ -145,13 +164,15 @@ describe('Video Controller Test', () => {
 
         // test
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new volume (reduced)',
-                theVideo.volume,
-                resetAttr.volume,
-            );
-            expect(theVideo.volume < resetAttr.volume).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new volume (reduced)',
+                    theVideo.volume,
+                    resetAttr.volume,
+                );
+                expect(theVideo.volume < resetAttr.volume).to.be.true;
+            }
         });
     });
 
@@ -171,9 +192,11 @@ describe('Video Controller Test', () => {
 
         // test
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log('new volume (min)', theVideo.volume);
-            expect(theVideo.volume === 0).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log('new volume (min)', theVideo.volume);
+                expect(theVideo.volume === 0).to.be.true;
+            }
         });
     });
 
@@ -187,13 +210,15 @@ describe('Video Controller Test', () => {
 
         // test
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log(
-                'new volume (increased)',
-                theVideo.volume,
-                resetAttr.volume,
-            );
-            expect(theVideo.volume > resetAttr.volume).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log(
+                    'new volume (increased)',
+                    theVideo.volume,
+                    resetAttr.volume,
+                );
+                expect(theVideo.volume > resetAttr.volume).to.be.true;
+            }
         });
     });
 
@@ -213,9 +238,11 @@ describe('Video Controller Test', () => {
 
         // test
         cy.get('@myvideo').then(($video) => {
-            const theVideo = $video[0] as HTMLVideoElement;
-            console.log('new volume (minimum)', theVideo.volume);
-            expect(theVideo.volume === 1).to.be.true;
+            for (let index = 0; index < $video.length; index++) {
+                const theVideo = $video[index] as HTMLVideoElement;
+                console.log('new volume (minimum)', theVideo.volume);
+                expect(theVideo.volume === 1).to.be.true;
+            }
         });
     });
 });
