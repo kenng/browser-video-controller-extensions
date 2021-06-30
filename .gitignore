@@ -6,6 +6,7 @@ delete*
 # Quasar core related directories
 .quasar
 /dist
+/build
 
 # Cordova related directories and files
 /src-cordova/node_modules
@@ -32,3 +33,6 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+cypress/screenshots
+cypress/videos

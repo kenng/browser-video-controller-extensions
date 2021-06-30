@@ -1,0 +1,40 @@
+name: End-to-end tests
+
+on:
+    push:
+        branches:
+            - release
+
+jobs:
+    cypress-run:
+        runs-on: ubuntu-latest
+        # container: cypress/browsers:node12.18.3-chrome87-ff82
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            # Install NPM dependencies, cache them correctly
+            # and run all Cypress tests
+            - name: Cypress run
+              uses: cypress-io/github-action@v2
+              with:
+                  browser: chrome
+                  headless: true
+            - name: Cypress run
+              uses: cypress-io/github-action@v2
+              with:
+                  #   build: apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb && npm install --global yarn http-server
+                  build: npm install --global yarn http-server
+                  start: npm run httpd-on-prod
+            - name: Record screenshot on failure
+              uses: actions/upload-artifact@v1
+              if: failure()
+              with:
+                  name: cypress-screenshots
+                  path: cypress/screenshots
+            # Test run video was always captured, so this action uses "always()" condition
+            - name: Record Video on failure
+              uses: actions/upload-artifact@v1
+              if: failure()
+              with:
+                  name: cypress-videos
+                  path: cypress/videos
