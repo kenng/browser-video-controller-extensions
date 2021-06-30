@@ -10,7 +10,7 @@ export default class IwVideo {
     constructor(
         video: HTMLVideoElement,
         seekRate = 1,
-        playBackRate = 1 / 5,
+        playBackRate = 0.2,
         volumeRate = 0.1,
     ) {
         this.video = video;
