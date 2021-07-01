@@ -11,7 +11,7 @@ describe('Video Controller Test', () => {
         volumeRate: 0.1,
     };
     before(() => {
-        cy.visit('http://localhost:8080');
+        cy.visit('/');
     });
 
     beforeEach(() => {
